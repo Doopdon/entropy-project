@@ -7,14 +7,14 @@ function spreadHeat() {
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
             const v = valueGrid[y][x];
-            const self = Math.floor(v / 5) * 4;
+            const self = Math.floor(v / 5);
             const rem = v % 5;
 
             // fallback to self if neighbor is missing
-            const up = valueGrid[y - 1]?.[x] ?? v;
-            const down = valueGrid[y + 1]?.[x] ?? v;
-            const left = valueGrid[y]?.[x - 1] ?? v;
-            const right = valueGrid[y]?.[x + 1] ?? v;
+            const up = valueGrid[y - 1]?.[x] ?? v-rem;
+            const down = valueGrid[y + 1]?.[x] ?? v-rem;
+            const left = valueGrid[y]?.[x - 1] ?? v-rem;
+            const right = valueGrid[y]?.[x + 1] ?? v-rem;
 
             // integer 1/5 of each neighbor
             const newVal = self + rem +
