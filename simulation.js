@@ -1,5 +1,5 @@
-// Heat spreading simulation
-function spreadHeat() {
+// Heat spreading simulation - generates new grid values
+function generateGrid() {
     let newGrid = Array.from({ length: height }, () =>
         new Array(width)
     );
@@ -24,11 +24,25 @@ function spreadHeat() {
                 Math.floor(right / 5);
 
             newGrid[y][x] = newVal;
-            drawPixel(x, y, newVal);
         }
     }
 
     valueGrid = newGrid;
+}
+
+// Display function - renders the current grid to canvas
+function displayGrid() {
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            drawPixel(x, y, valueGrid[y][x]);
+        }
+    }
+}
+
+// Combined function that calls generation then display
+function spreadHeat() {
+    generateGrid();
+    displayGrid();
 }
 
 
