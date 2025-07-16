@@ -1,11 +1,10 @@
 # Entropy Project
 
-This is a simple cellular automata simulation for heat diffusion and entropy visualization. The project demonstrates how heat spreads through different materials with varying thermal conductivity.
+This is a simple cellular automata simulation for heat diffusion and entropy visualization. The project demonstrates how heat spreads and diffuses across a grid.
 
 ## Features
 
 - **Heat Simulation**: Click and drag on the canvas to add heat (temperature = 1000)
-- **Material Properties**: Different zones have different heat conductivity
 - **Visualization Modes**: 
   - Atomic mode: Shows discrete heat values with colors
   - Temperature mode: Shows heat as red intensity
@@ -35,8 +34,7 @@ The project has been modularized into separate files for better organization:
 ## Technical Details
 
 - **Grid Size**: 600x300 pixels with 2px rendering size
-- **Heat Algorithm**: Diffusion-based cellular automata with material-specific conductivity
-- **Materials**: Two zones with different thermal properties
+- **Heat Algorithm**: Diffusion-based cellular automata with uniform heat conductivity
 - **Update Rate**: 1ms intervals with configurable speed multiplier
 
 ## Future Plans

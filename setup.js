@@ -3,8 +3,6 @@ const width = 600;
 const height = 300;
 const pxSize = 2;
 
-const mateerial1SpecificHeat = 1;
-const mateerial2SpecificHeat = 1;
 
 const colorMap = [
     '#FF6B6B', '#FFD93D', '#6BCB77', '#4D96FF', '#843b62',
@@ -18,7 +16,6 @@ let mode = 'atomic';
 
 // Grid arrays
 let valueGrid;
-let materialGrid = [];
 
 // Canvas setup
 const canvas = document.getElementById('canvas');
@@ -33,25 +30,6 @@ function setGrid() {
     );
 }
 
-// Create material grid with different heat conductivity zones
-function makeMaterialGrid() {
-    const centerX = Math.floor(width / 2);
-    const squareSize = 50;
-    const half = squareSize / 2;
-
-    for (let y = 0; y < height; y++) {
-        materialGrid[y] = [];
-        for (let x = 0; x < width; x++) {
-            // Default value
-            materialGrid[y][x] = mateerial1SpecificHeat;
-
-            // If within vertical strip centered on grid
-            if (x >= centerX - half && x < centerX + half) {
-                materialGrid[y][x] = mateerial2SpecificHeat;
-            }
-        }
-    }
-}
 
 // Color mapping functions
 function getColorForValue(val) {
@@ -61,7 +39,7 @@ function getColorForValue(val) {
     return colorMap[val % 10];
 }
 
-function getTemperatureColorForValue(value, material) {
+function getTemperatureColorForValue(value) {
     // Clamp 0–1000
     value = Math.max(0, Math.min(1000, value));
 
@@ -74,21 +52,15 @@ function getTemperatureColorForValue(value, material) {
 }
 
 // Drawing function
-function drawPixel(x, y, val, material) {
+function drawPixel(x, y, val) {
     if (mode == 'atomic') {
         ctx.fillStyle = getColorForValue(val);
         ctx.fillRect(x * pxSize, y * pxSize, pxSize, pxSize);
     } else if (mode == 'temp') {
-        ctx.fillStyle = getTemperatureColorForValue(val, material);
+        ctx.fillStyle = getTemperatureColorForValue(val);
         ctx.fillRect(x * pxSize, y * pxSize, pxSize, pxSize);
     }
 }
 
-// Initialize grids
-function initializeSimulation() {
-    setGrid();
-    makeMaterialGrid();
-}
-
 // Initialize the simulation
-initializeSimulation();
+setGrid();
