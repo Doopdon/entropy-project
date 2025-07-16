@@ -37,42 +37,6 @@ function spreadHeat() {
     valueGrid = newGrid;
 }
 
-// Buoyancy simulation (currently unused but available)
-function runBuoyancy() {
-    for (let y = height - 2; y >= 0; y--) {
-        for (let x = 0; x < width; x++) {
-            const currentVal = valueGrid[y][x];
-            const aboveVal = valueGrid[y + 1][x];
-
-            const currentMaterial = materialGrid[y][x];
-            const aboveMaterial = materialGrid[y + 1][x];
-
-            // Optionally weight buoyancy by material density (lower = more buoyant)
-            const currentEffective = currentVal / (currentMaterial + 1);
-            const aboveEffective = aboveVal / (aboveMaterial + 1);
-
-            // Simple swap if hotter and "lighter"
-            if (currentEffective > aboveEffective) {
-                // Swap values
-                [valueGrid[y][x], valueGrid[y + 1][x]] = [valueGrid[y + 1][x], valueGrid[y][x]];
-                [materialGrid[y][x], materialGrid[y + 1][x]] = [materialGrid[y + 1][x], materialGrid[y][x]];
-
-                // Optionally redraw swapped pixels
-                drawPixel(x, y, valueGrid[y][x], materialGrid[y][x]);
-                drawPixel(x, y + 1, valueGrid[y + 1][x], materialGrid[y + 1][x]);
-            }
-        }
-    }
-}
-
-// Reset grid to room temperature
-function randomizeGrid() {
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-            valueGrid[y][x] = 0;
-        }
-    }
-}
 
 // Start the simulation
 function startSimulation() {
@@ -83,7 +47,6 @@ function startSimulation() {
     setInterval(() => {
         for (let i = 0; i < speedValue; i++) {
             spreadHeat();
-            // runBuoyancy(); // Uncomment to enable buoyancy effects
         }
     }, 1);
 }

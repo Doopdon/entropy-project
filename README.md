@@ -21,10 +21,9 @@ The project has been modularized into separate files for better organization:
 
 - **`index.html`**: Main HTML file with UI controls and canvas
 - **`setup.js`**: Configuration, initialization, canvas setup, and grid creation
-- **`simulation.js`**: Physics simulation, heat spreading algorithm, and buoyancy effects
+- **`simulation.js`**: Physics simulation and heat spreading algorithm
 - **`interaction.js`**: User interface event handlers and mouse interactions
 - **`main.js`**: Entry point and coordination between modules
-- **`entropy-main.js`**: Original monolithic file (kept for reference)
 
 ## How to Run
 

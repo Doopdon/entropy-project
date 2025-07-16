@@ -59,12 +59,6 @@ roomTempInput.addEventListener('input', () => {
     console.log('roomTemp =', roomTemp);
 });
 
-// Optional: update input if `roomTemp` changes elsewhere in code
-function setRoomTemp(val) {
-    roomTemp = val;
-    roomTempInput.value = val;
-}
-
 // Reset button - reinitialize the grid
 document.getElementById('reset').addEventListener('click', () => {
     setGrid();

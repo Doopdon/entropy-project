@@ -35,11 +35,7 @@ function setGrid() {
 
 // Create material grid with different heat conductivity zones
 function makeMaterialGrid() {
-    // Center coordinates
     const centerX = Math.floor(width / 2);
-    const centerY = Math.floor(height / 2);
-
-    // Square bounds (50x50 centered)
     const squareSize = 50;
     const half = squareSize / 2;
 
