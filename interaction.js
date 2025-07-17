@@ -50,6 +50,11 @@ document.getElementById('speedDown').addEventListener('click', () => {
     updateDisplay();
 });
 
+document.getElementById('stopButton').addEventListener('click', () => {
+    speedValue = 0;
+    updateDisplay();
+});
+
 // Room temperature control
 const roomTempInput = document.getElementById('roomTempInput');
 
