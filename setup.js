@@ -1,11 +1,11 @@
 // Configuration constants
-const width = 600;
+const width = 300;
 const height = 300;
 const pxSize = 2;
 
 
 const colorMap = [
-    '#FF6B6B', '#FFD93D', '#6BCB77', '#4D96FF', '#843b62',
+   '#FF6B6B', '#FFD93D', '#6BCB77', '#4D96FF', '#843b62',
     '#f9c74f', '#90be6d', '#f94144', '#577590', '#f3722c'
 ];
 
