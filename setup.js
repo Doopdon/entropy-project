@@ -5,12 +5,12 @@ const pxSize = 2;
 
 
 const colorMap = [
-   '#FF6B6B', '#FFD93D', '#6BCB77', '#4D96FF', '#843b62',
+    '#FF6B6B', '#FFD93D', '#6BCB77', '#4D96FF', '#843b62',
     '#f9c74f', '#90be6d', '#f94144', '#577590', '#f3722c'
 ];
 
 // Global state variables
-let speedValue = 1;
+let speedValue = 0;
 let roomTemp = 0;
 let mode = 'atomic';
 
@@ -36,7 +36,7 @@ function setMaterialGrid() {
     const middleRow = Math.floor(height / 2);
 
     materialGrid = Array.from({ length: height }, (_, row) =>
-        Array.from({ length: width }, () => (row === middleRow ? 1 : 0))
+        Array.from({ length: width }, () => (0))
     );
 }
 
@@ -61,13 +61,24 @@ function getTemperatureColorForValue(value) {
     return `rgb(${r}, 0, 0)`;
 }
 
+function getMaterialColor(val) {
+    return [' #000000', '#FFFFFF'][val];
+}
+
 // Drawing function
 function drawPixel(x, y, val) {
+    if (val == -1) {
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(x * pxSize, y * pxSize, pxSize, pxSize);
+    }
     if (mode == 'atomic') {
         ctx.fillStyle = getColorForValue(val);
         ctx.fillRect(x * pxSize, y * pxSize, pxSize, pxSize);
     } else if (mode == 'temp') {
         ctx.fillStyle = getTemperatureColorForValue(val);
+        ctx.fillRect(x * pxSize, y * pxSize, pxSize, pxSize);
+    } else if (mode == 'material') {
+        ctx.fillStyle = getMaterialColor(materialGrid[y][x]);
         ctx.fillRect(x * pxSize, y * pxSize, pxSize, pxSize);
     }
 }

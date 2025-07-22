@@ -27,11 +27,18 @@ function paintAtMouse(e) {
     const x = Math.floor((e.clientX - rect.left) / pxSize);
     const y = Math.floor((e.clientY - rect.top) / pxSize);
 
-    if (x >= 0 && x < width && y >= 0 && y < height) {
+    if (mode == 'material') {
+        materialGrid[y][x] = 1;
+        drawPixel(x, y);
+    } else if (x >= 0 && x < width && y >= 0 && y < height) {
         const newVal = 1000;
         temperatureGrid[y][x] = newVal;
         drawPixel(x, y, newVal);
     }
+    
+
+
+
 }
 
 // Speed control UI
@@ -67,6 +74,7 @@ roomTempInput.addEventListener('input', () => {
 // Reset button - reinitialize the grid
 document.getElementById('reset').addEventListener('click', () => {
     setTemperatureGrid();
+    setMaterialGrid();
 });
 
 // Display mode buttons
@@ -76,4 +84,8 @@ document.getElementById('temp').addEventListener('click', () => {
 
 document.getElementById('atomic').addEventListener('click', () => {
     mode = 'atomic';
+});
+
+document.getElementById('material').addEventListener('click', () => {
+    mode = 'material';
 });
