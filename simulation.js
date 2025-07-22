@@ -17,35 +17,48 @@ function spreadHeat() {
     temperatureGrid = newGrid;
 }
 
+function runPipes() {
+    let lastPipe = pipeList[pipeList.length - 1]
+    let lastValue = temperatureGrid[lastPipe.y][lastPipe.x];
+    let firstPipe = pipeList[0];
+    let firstValue = temperatureGrid[firstPipe.y][firstPipe.x];
+    pipeList.forEach(v => {
+        let t = temperatureGrid[v.y][v.x]
+        temperatureGrid[v.y][v.x] = firstValue;
+        firstValue = t;
+    })
+    temperatureGrid[firstPipe.y][firstPipe.x] = lastValue;
+}
+
 function standardHeadFlow(y, x, newGrid) {
     const v = temperatureGrid[y][x];
     const self = Math.floor(v / 5);
     const rem = v % 5;
 
     let up = temperatureGrid[y - 1]?.[x];
-    if (up === undefined || materialGrid[y-1][x] == 1) {
+    if (up === undefined || materialGrid[y - 1][x] == 1) {
         up = v - rem
     }
 
     let down = temperatureGrid[y + 1]?.[x];
-    if (down === undefined || materialGrid[y+1][x] == 1) {
+    if (down === undefined || materialGrid[y + 1][x] == 1) {
         down = v - rem
     }
 
     let left = temperatureGrid[y]?.[x - 1];
-    if (left === undefined || materialGrid[y][x-1] == 1) {
+    if (left === undefined || materialGrid[y][x - 1] == 1) {
         left = v - rem
     }
 
     let right = temperatureGrid[y]?.[x + 1];
-    if (right === undefined || materialGrid[y][x+1] == 1) {
+    if (right === undefined || materialGrid[y][x + 1] == 1) {
         right = v - rem
     }
 
 
     // fallback to self if neighbor is missing
     //const right = temperatureGrid[y - 1]?.[x] ?? v - rem;
-   // const down = temperatureGrid[y + 1]?.[x] ?? v - rem;
+    // const down = temperatureGrid[y + 1]?.[x] ?? v - rem;
     //const left = temperatureGrid[y]?.[x - 1] ?? v - rem;
     //const right = temperatureGrid[y]?.[x + 1] ?? v - rem;
 
@@ -83,6 +96,7 @@ function startSimulation() {
             // Positive speed - run multiple iterations per millisecond
             for (let i = 0; i < speedValue; i++) {
                 spreadHeat();
+                runPipes();
             }
             displayGrid();
         } else {
@@ -99,6 +113,7 @@ function startSimulation() {
             if (now - startSimulation.lastUpdate >= intervalFactor) {
                 spreadHeat();
                 displayGrid();
+                runPipes();
                 startSimulation.lastUpdate = now;
             }
         }

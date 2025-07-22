@@ -19,6 +19,8 @@ let temperatureGrid;
 
 let materialGrid;
 
+let pipeList;
+
 // Canvas setup
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
@@ -41,6 +43,38 @@ function setMaterialGrid() {
 }
 
 
+function setPipeList() {
+    let points = [];
+
+    let corners = [100, 200];
+
+    // Top edge: (10,10) → (100,10)
+    for (let x = corners[0]; x <= corners[1]; x++) {
+        points.push({ x, y: corners[0] });
+       // materialGrid[y][x] = 2
+    }
+
+    // Right edge: (100,11) → (100,100)
+    for (let y = corners[0] + 1; y <= corners[1]; y++) {
+        points.push({ x: corners[1], y });
+        //materialGrid[y][x] = 2
+    }
+
+    // Bottom edge: (99,100) → (10,100)
+    for (let x = corners[1] - 1; x >= corners[0]; x--) {
+        points.push({ x, y: corners[1] });
+       // materialGrid[y][x] = 2
+    }
+
+    // Left edge: (10,99) → (10,11)
+    for (let y = corners[1] - 1; y >= corners[0] + 1; y--) {
+        points.push({ x: corners[0], y });
+        //materialGrid[y][x] = 2
+    }
+
+    pipeList = points;
+}
+
 // Color mapping functions
 function getColorForValue(val) {
     if (val == 0) {
@@ -62,13 +96,13 @@ function getTemperatureColorForValue(value) {
 }
 
 function getMaterialColor(val) {
-    return [' #000000', '#FFFFFF'][val];
+    return [' #000000', '#FFFFFF', '#FFFF00'][val];
 }
 
 // Drawing function
 function drawPixel(x, y, val) {
-    if (val == -1) {
-        ctx.fillStyle = '#FFFFFF';
+    if (materialGrid[y][x] != 0) {
+        ctx.fillStyle = getMaterialColor(materialGrid[y][x]);
         ctx.fillRect(x * pxSize, y * pxSize, pxSize, pxSize);
     }
     if (mode == 'atomic') {
@@ -86,3 +120,4 @@ function drawPixel(x, y, val) {
 // Initialize the simulation
 setTemperatureGrid();
 setMaterialGrid();
+setPipeList();
