@@ -15,7 +15,9 @@ let roomTemp = 0;
 let mode = 'atomic';
 
 // Grid arrays
-let valueGrid;
+let temperatureGrid;
+
+let materialGrid;
 
 // Canvas setup
 const canvas = document.getElementById('canvas');
@@ -24,9 +26,17 @@ canvas.width = width * pxSize;
 canvas.height = height * pxSize;
 
 // Initialize value grid with room temperature
-function setGrid() {
-    valueGrid = Array.from({ length: height }, () =>
+function setTemperatureGrid() {
+    temperatureGrid = Array.from({ length: height }, () =>
         Array.from({ length: width }, () => roomTemp)
+    );
+}
+
+function setMaterialGrid() {
+    const middleRow = Math.floor(height / 2);
+
+    materialGrid = Array.from({ length: height }, (_, row) =>
+        Array.from({ length: width }, () => (row === middleRow ? 1 : 0))
     );
 }
 
@@ -63,4 +73,5 @@ function drawPixel(x, y, val) {
 }
 
 // Initialize the simulation
-setGrid();
+setTemperatureGrid();
+setMaterialGrid();

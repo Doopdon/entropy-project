@@ -29,7 +29,7 @@ function paintAtMouse(e) {
 
     if (x >= 0 && x < width && y >= 0 && y < height) {
         const newVal = 1000;
-        valueGrid[y][x] = newVal;
+        temperatureGrid[y][x] = newVal;
         drawPixel(x, y, newVal);
     }
 }
@@ -66,7 +66,7 @@ roomTempInput.addEventListener('input', () => {
 
 // Reset button - reinitialize the grid
 document.getElementById('reset').addEventListener('click', () => {
-    setGrid();
+    setTemperatureGrid();
 });
 
 // Display mode buttons

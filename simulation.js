@@ -6,15 +6,16 @@ function spreadHeat() {
 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            const v = valueGrid[y][x];
+
+            const v = temperatureGrid[y][x];
             const self = Math.floor(v / 5);
             const rem = v % 5;
 
             // fallback to self if neighbor is missing
-            const up = valueGrid[y - 1]?.[x] ?? v-rem;
-            const down = valueGrid[y + 1]?.[x] ?? v-rem;
-            const left = valueGrid[y]?.[x - 1] ?? v-rem;
-            const right = valueGrid[y]?.[x + 1] ?? v-rem;
+            const up = temperatureGrid[y - 1]?.[x] ?? v-rem;
+            const down = temperatureGrid[y + 1]?.[x] ?? v-rem;
+            const left = temperatureGrid[y]?.[x - 1] ?? v-rem;
+            const right = temperatureGrid[y]?.[x + 1] ?? v-rem;
 
             // integer 1/5 of each neighbor
             const newVal = self + rem +
@@ -27,14 +28,14 @@ function spreadHeat() {
         }
     }
 
-    valueGrid = newGrid;
+    temperatureGrid = newGrid;
 }
 
 // Display function - renders the current grid to canvas
 function displayGrid() {
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            drawPixel(x, y, valueGrid[y][x]);
+            drawPixel(x, y, temperatureGrid[y][x]);
         }
     }
 }
