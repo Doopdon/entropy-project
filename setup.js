@@ -51,25 +51,25 @@ function setPipeList() {
     // Top edge: (10,10) → (100,10)
     for (let x = corners[0]; x <= corners[1]; x++) {
         points.push({ x, y: corners[0] });
-       // materialGrid[y][x] = 2
+        materialGrid[corners[0]][x] = 2
     }
 
     // Right edge: (100,11) → (100,100)
     for (let y = corners[0] + 1; y <= corners[1]; y++) {
         points.push({ x: corners[1], y });
-        //materialGrid[y][x] = 2
+        materialGrid[y][corners[1]] = 2
     }
 
     // Bottom edge: (99,100) → (10,100)
     for (let x = corners[1] - 1; x >= corners[0]; x--) {
         points.push({ x, y: corners[1] });
-       // materialGrid[y][x] = 2
+        materialGrid[corners[1]][x] = 2
     }
 
     // Left edge: (10,99) → (10,11)
     for (let y = corners[1] - 1; y >= corners[0] + 1; y--) {
         points.push({ x: corners[0], y });
-        //materialGrid[y][x] = 2
+        materialGrid[y][corners[0]] = 2
     }
 
     pipeList = points;
@@ -104,8 +104,7 @@ function drawPixel(x, y, val) {
     if (materialGrid[y][x] != 0) {
         ctx.fillStyle = getMaterialColor(materialGrid[y][x]);
         ctx.fillRect(x * pxSize, y * pxSize, pxSize, pxSize);
-    }
-    if (mode == 'atomic') {
+    } else if (mode == 'atomic') {
         ctx.fillStyle = getColorForValue(val);
         ctx.fillRect(x * pxSize, y * pxSize, pxSize, pxSize);
     } else if (mode == 'temp') {
@@ -118,6 +117,10 @@ function drawPixel(x, y, val) {
 }
 
 // Initialize the simulation
-setTemperatureGrid();
-setMaterialGrid();
-setPipeList();
+function setup() {
+    setTemperatureGrid();
+    setMaterialGrid();
+    setPipeList();
+}
+
+setup();

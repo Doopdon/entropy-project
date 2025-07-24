@@ -6,7 +6,7 @@ function spreadHeat() {
 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            if (materialGrid[y][x] == 0) {
+            if (materialGrid[y][x] != 1) {
                 standardHeadFlow(y, x, newGrid)
             } else {
                 newGrid[y][x] = -1;
@@ -113,6 +113,9 @@ function startSimulation() {
             if (now - startSimulation.lastUpdate >= intervalFactor) {
                 spreadHeat();
                 displayGrid();
+                runPipes();
+                runPipes();
+                runPipes();
                 runPipes();
                 startSimulation.lastUpdate = now;
             }

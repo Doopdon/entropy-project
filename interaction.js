@@ -28,6 +28,7 @@ function paintAtMouse(e) {
     const y = Math.floor((e.clientY - rect.top) / pxSize);
 
     if (mode == 'material') {
+        if (materialGrid[y][x] == 2) return;
         materialGrid[y][x] = 1;
         drawPixel(x, y);
     } else if (x >= 0 && x < width && y >= 0 && y < height) {
@@ -35,7 +36,7 @@ function paintAtMouse(e) {
         temperatureGrid[y][x] = newVal;
         drawPixel(x, y, newVal);
     }
-    
+
 
 
 
@@ -73,8 +74,7 @@ roomTempInput.addEventListener('input', () => {
 
 // Reset button - reinitialize the grid
 document.getElementById('reset').addEventListener('click', () => {
-    setTemperatureGrid();
-    setMaterialGrid();
+    setup();
 });
 
 // Display mode buttons
